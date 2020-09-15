@@ -1,0 +1,49 @@
+apiVersion: kubeless.io/v1beta1
+kind: Function
+metadata:
+  name: get-echo
+  namespace: local
+  label:
+    created-by: kubeless
+    function: get-echo
+spec:
+  runtime: nodejs10
+  timeout: "30"
+  handler: index.echo
+  deps: ""
+  function-content-type: url+zip
+  function: "https://github.com/ihakkitekin/kubernetes-demo/raw/master/kubeless-app/index.zip?raw=true"
+  deployment:
+    spec:
+      template:
+        spec:
+          initContainers:
+          - resources:
+              limits:
+                cpu: 200m
+                memory: 200Mi
+              requests:
+                cpu: 200m          
+          containers:
+            - name: "get-echo"
+              resources:
+                limits:
+                  cpu: 0.5
+                  memory: 400Mi
+                requests:
+                  cpu: 100m
+                  memory: 100Mi
+---
+apiVersion: kubeless.io/v1beta1
+kind: HTTPTrigger
+metadata:
+  labels:
+    created-by: kubeless
+  name: get-echo
+  namespace: local
+spec:
+  function-name: get-echo
+  host-name: get-echo.localhost
+  ingress-enabled: true
+  path: echo
+  tls: false
