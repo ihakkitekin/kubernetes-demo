@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# kubeless.exe function deploy echo --runtime nodejs10 \
+# kubeless function deploy echo --runtime nodejs10 \
 #                                 --cpu 0.5 \
 #                                 --memory 500Mi \
 #                                 --timeout 5 \
