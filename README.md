@@ -43,7 +43,6 @@ First enable kubernetes from docker.
     $ kubeless.exe function deploy echo --runtime nodejs10 \
             --cpu 0.5 \
             --memory 500Mi \
-            --servicePort 32002 \
             --timeout 5 \
             --namespace local \
             --handler index.echo \
